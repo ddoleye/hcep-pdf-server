@@ -5,12 +5,14 @@ LABEL maintainer="yu_yamazaki@bizocean.co.jp"
 RUN apt-get update --fix-missing && apt-get -y upgrade
 
 # Locale settings (japanese)
-RUN apt-get install -y locales task-japanese \
-  && locale-gen ja_JP.UTF-8 \
-  && localedef -f UTF-8 -i ja_JP ja_JP
-ENV LANG ja_JP.UTF-8
-ENV LANGUAGE ja_JP:jp
-ENV LC_ALL ja_JP.UTF-8
+#RUN apt-get install -y locales task-japanese \
+#  && locale-gen ja_JP.UTF-8 \
+#  && localedef -f UTF-8 -i ja_JP ja_JP
+#ENV LANG ja_JP.UTF-8
+#ENV LANGUAGE ja_JP:jp
+#ENV LC_ALL ja_JP.UTF-8
+
+RUN apt-get install -y wget gnupg2 fonts-noto fonts-nanum
 
 # Install stable chrome and dependencies.
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
@@ -45,7 +47,7 @@ RUN npm install -u npm && \
     npm install
 
 # Install fonts
-COPY fonts /usr/share/fonts
+#COPY fonts /usr/share/fonts
 
 COPY app /hcep/app
 
